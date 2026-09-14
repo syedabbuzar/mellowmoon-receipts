@@ -5,12 +5,12 @@ interface CurrencyInputProps {
   id: string;
   label: string;
   value: string;
-  onValueChange?: (value: string) => void;
-  required?: boolean;
-  error?: string;
-  hint?: string;
-  readOnly?: boolean;
-  placeholder?: string;
+  onValueChange?: ((value: string) => void) | undefined;
+  required?: boolean | undefined;
+  error?: string | undefined;
+  hint?: string | undefined;
+  readOnly?: boolean | undefined;
+  placeholder?: string | undefined;
 }
 
 export function CurrencyInput({

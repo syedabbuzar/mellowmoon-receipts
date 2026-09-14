@@ -6,9 +6,9 @@ import { cn } from "@/lib/utils";
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   id: string;
   label: string;
-  error?: string;
-  hint?: string;
-  fieldClassName?: string;
+  error?: string | undefined;
+  hint?: string | undefined;
+  fieldClassName?: string | undefined;
 }
 
 export function Input({
