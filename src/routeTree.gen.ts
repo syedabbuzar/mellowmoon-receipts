@@ -13,6 +13,8 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as CreateReceiptRouteImport } from './routes/create-receipt'
 import { Route as ReceiptsIndexRouteImport } from './routes/receipts.index'
 import { Route as ReceiptsReceiptIdRouteImport } from './routes/receipts.$receiptId'
+import { Route as StudentsIndexRouteImport } from './routes/students.index'
+import { Route as StudentsStudentIdRouteImport } from './routes/students.$studentId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -34,40 +36,76 @@ const ReceiptsReceiptIdRoute = ReceiptsReceiptIdRouteImport.update({
   path: '/receipts/$receiptId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const StudentsIndexRoute = StudentsIndexRouteImport.update({
+  id: '/students/',
+  path: '/students/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudentsStudentIdRoute = StudentsStudentIdRouteImport.update({
+  id: '/students/$studentId',
+  path: '/students/$studentId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/create-receipt': typeof CreateReceiptRoute
   '/receipts/$receiptId': typeof ReceiptsReceiptIdRoute
+  '/students/$studentId': typeof StudentsStudentIdRoute
   '/receipts/': typeof ReceiptsIndexRoute
+  '/students/': typeof StudentsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/create-receipt': typeof CreateReceiptRoute
   '/receipts/$receiptId': typeof ReceiptsReceiptIdRoute
+  '/students/$studentId': typeof StudentsStudentIdRoute
   '/receipts': typeof ReceiptsIndexRoute
+  '/students': typeof StudentsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/create-receipt': typeof CreateReceiptRoute
   '/receipts/$receiptId': typeof ReceiptsReceiptIdRoute
+  '/students/$studentId': typeof StudentsStudentIdRoute
   '/receipts/': typeof ReceiptsIndexRoute
+  '/students/': typeof StudentsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/create-receipt' | '/receipts/$receiptId' | '/receipts/'
+  fullPaths:
+    | '/'
+    | '/create-receipt'
+    | '/receipts/$receiptId'
+    | '/students/$studentId'
+    | '/receipts/'
+    | '/students/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/create-receipt' | '/receipts/$receiptId' | '/receipts'
+  to:
+    | '/'
+    | '/create-receipt'
+    | '/receipts/$receiptId'
+    | '/students/$studentId'
+    | '/receipts'
+    | '/students'
   id:
-    '__root__' | '/' | '/create-receipt' | '/receipts/$receiptId' | '/receipts/'
+    | '__root__'
+    | '/'
+    | '/create-receipt'
+    | '/receipts/$receiptId'
+    | '/students/$studentId'
+    | '/receipts/'
+    | '/students/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CreateReceiptRoute: typeof CreateReceiptRoute
   ReceiptsReceiptIdRoute: typeof ReceiptsReceiptIdRoute
+  StudentsStudentIdRoute: typeof StudentsStudentIdRoute
   ReceiptsIndexRoute: typeof ReceiptsIndexRoute
+  StudentsIndexRoute: typeof StudentsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -100,6 +138,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ReceiptsReceiptIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/students/': {
+      id: '/students/'
+      path: '/students'
+      fullPath: '/students/'
+      preLoaderRoute: typeof StudentsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/students/$studentId': {
+      id: '/students/$studentId'
+      path: '/students/$studentId'
+      fullPath: '/students/$studentId'
+      preLoaderRoute: typeof StudentsStudentIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -107,7 +159,9 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CreateReceiptRoute: CreateReceiptRoute,
   ReceiptsReceiptIdRoute: ReceiptsReceiptIdRoute,
+  StudentsStudentIdRoute: StudentsStudentIdRoute,
   ReceiptsIndexRoute: ReceiptsIndexRoute,
+  StudentsIndexRoute: StudentsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

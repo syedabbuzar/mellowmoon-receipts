@@ -8,10 +8,10 @@ interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   id: string;
   label: string;
   options: { value: string; label: string }[];
-  placeholder?: string;
-  error?: string;
-  hint?: string;
-  fieldClassName?: string;
+  placeholder?: string | undefined;
+  error?: string | undefined;
+  hint?: string | undefined;
+  fieldClassName?: string | undefined;
 }
 
 export function Select({
