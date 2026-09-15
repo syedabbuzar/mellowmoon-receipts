@@ -10,7 +10,11 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CoursesRouteImport } from './routes/courses'
 import { Route as CreateReceiptRouteImport } from './routes/create-receipt'
+import { Route as DurationsRouteImport } from './routes/durations'
+import { Route as ProgramTypesRouteImport } from './routes/program-types'
+import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as ReceiptsIndexRouteImport } from './routes/receipts.index'
 import { Route as ReceiptsReceiptIdRouteImport } from './routes/receipts.$receiptId'
 import { Route as StudentsIndexRouteImport } from './routes/students.index'
@@ -21,9 +25,29 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CoursesRoute = CoursesRouteImport.update({
+  id: '/courses',
+  path: '/courses',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CreateReceiptRoute = CreateReceiptRouteImport.update({
   id: '/create-receipt',
   path: '/create-receipt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DurationsRoute = DurationsRouteImport.update({
+  id: '/durations',
+  path: '/durations',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProgramTypesRoute = ProgramTypesRouteImport.update({
+  id: '/program-types',
+  path: '/program-types',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ReceiptsIndexRoute = ReceiptsIndexRouteImport.update({
@@ -49,7 +73,11 @@ const StudentsStudentIdRoute = StudentsStudentIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/courses': typeof CoursesRoute
   '/create-receipt': typeof CreateReceiptRoute
+  '/durations': typeof DurationsRoute
+  '/program-types': typeof ProgramTypesRoute
+  '/settings': typeof SettingsRoute
   '/receipts/$receiptId': typeof ReceiptsReceiptIdRoute
   '/students/$studentId': typeof StudentsStudentIdRoute
   '/receipts/': typeof ReceiptsIndexRoute
@@ -57,7 +85,11 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/courses': typeof CoursesRoute
   '/create-receipt': typeof CreateReceiptRoute
+  '/durations': typeof DurationsRoute
+  '/program-types': typeof ProgramTypesRoute
+  '/settings': typeof SettingsRoute
   '/receipts/$receiptId': typeof ReceiptsReceiptIdRoute
   '/students/$studentId': typeof StudentsStudentIdRoute
   '/receipts': typeof ReceiptsIndexRoute
@@ -66,7 +98,11 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/courses': typeof CoursesRoute
   '/create-receipt': typeof CreateReceiptRoute
+  '/durations': typeof DurationsRoute
+  '/program-types': typeof ProgramTypesRoute
+  '/settings': typeof SettingsRoute
   '/receipts/$receiptId': typeof ReceiptsReceiptIdRoute
   '/students/$studentId': typeof StudentsStudentIdRoute
   '/receipts/': typeof ReceiptsIndexRoute
@@ -76,7 +112,11 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/courses'
     | '/create-receipt'
+    | '/durations'
+    | '/program-types'
+    | '/settings'
     | '/receipts/$receiptId'
     | '/students/$studentId'
     | '/receipts/'
@@ -84,7 +124,11 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/courses'
     | '/create-receipt'
+    | '/durations'
+    | '/program-types'
+    | '/settings'
     | '/receipts/$receiptId'
     | '/students/$studentId'
     | '/receipts'
@@ -92,7 +136,11 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/courses'
     | '/create-receipt'
+    | '/durations'
+    | '/program-types'
+    | '/settings'
     | '/receipts/$receiptId'
     | '/students/$studentId'
     | '/receipts/'
@@ -101,7 +149,11 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CoursesRoute: typeof CoursesRoute
   CreateReceiptRoute: typeof CreateReceiptRoute
+  DurationsRoute: typeof DurationsRoute
+  ProgramTypesRoute: typeof ProgramTypesRoute
+  SettingsRoute: typeof SettingsRoute
   ReceiptsReceiptIdRoute: typeof ReceiptsReceiptIdRoute
   StudentsStudentIdRoute: typeof StudentsStudentIdRoute
   ReceiptsIndexRoute: typeof ReceiptsIndexRoute
@@ -117,11 +169,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/courses': {
+      id: '/courses'
+      path: '/courses'
+      fullPath: '/courses'
+      preLoaderRoute: typeof CoursesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/create-receipt': {
       id: '/create-receipt'
       path: '/create-receipt'
       fullPath: '/create-receipt'
       preLoaderRoute: typeof CreateReceiptRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/durations': {
+      id: '/durations'
+      path: '/durations'
+      fullPath: '/durations'
+      preLoaderRoute: typeof DurationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/program-types': {
+      id: '/program-types'
+      path: '/program-types'
+      fullPath: '/program-types'
+      preLoaderRoute: typeof ProgramTypesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/receipts/': {
@@ -157,7 +237,11 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CoursesRoute: CoursesRoute,
   CreateReceiptRoute: CreateReceiptRoute,
+  DurationsRoute: DurationsRoute,
+  ProgramTypesRoute: ProgramTypesRoute,
+  SettingsRoute: SettingsRoute,
   ReceiptsReceiptIdRoute: ReceiptsReceiptIdRoute,
   StudentsStudentIdRoute: StudentsStudentIdRoute,
   ReceiptsIndexRoute: ReceiptsIndexRoute,
