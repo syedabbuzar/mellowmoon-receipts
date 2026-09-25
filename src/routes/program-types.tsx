@@ -1,8 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Layers } from "lucide-react";
 
-import { ManageListPage, type ManagedItem } from "@/components/common/ManageListPage";
-import { usePortalData } from "@/store/portal-data";
+import ProgramTypes from "@/pages/ProgramTypes";
 
 export const Route = createFileRoute("/program-types")({
   head: () => ({
@@ -20,24 +18,5 @@ export const Route = createFileRoute("/program-types")({
       },
     ],
   }),
-  component: ProgramTypesPage,
+  component: ProgramTypes,
 });
-
-function ProgramTypesPage() {
-  const { programTypes, setProgramTypes } = usePortalData();
-
-  return (
-    <ManageListPage
-      title="Program Types"
-      subtitle="Programme categories available on the receipt form"
-      itemNoun="Program Type"
-      nameLabel="Program Type"
-      namePlaceholder="e.g. Training + Internship"
-      icon={Layers}
-      items={programTypes}
-      onChange={(updater) =>
-        setProgramTypes((prev) => updater(prev as ManagedItem[]) as typeof prev)
-      }
-    />
-  );
-}
