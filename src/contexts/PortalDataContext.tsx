@@ -1,4 +1,12 @@
-import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+  type ReactNode,
+} from "react";
 
 import { mockCompany, mockReceiptSettings } from "@/mock/company";
 import { mockCourses } from "@/mock/courses";
@@ -6,6 +14,12 @@ import { mockDurations } from "@/mock/durations";
 import { mockProgramTypes } from "@/mock/programTypes";
 import { mockReceipts } from "@/mock/receipts";
 import { mockStudents } from "@/mock/students";
+import { getCourses } from "@/services/coursesService";
+import { getDurations } from "@/services/durationsService";
+import { getProgramTypes } from "@/services/programTypesService";
+import { getReceipts } from "@/services/receiptsService";
+import { getSettings } from "@/services/settingsService";
+import { getStudents } from "@/services/studentsService";
 import type {
   CompanyProfile,
   Course,
@@ -23,6 +37,7 @@ import type {
  */
 
 interface PortalData {
+  loading: boolean;
   company: CompanyProfile;
   settings: ReceiptSettings;
   courses: Course[];
@@ -50,6 +65,28 @@ export function PortalDataProvider({ children }: { children: ReactNode }) {
   const [students, setStudents] = useState<Student[]>(mockStudents);
   const [receipts, setReceipts] = useState<Receipt[]>(mockReceipts);
 
+  const [loading, setLoading] = useState(true);
+
+  // Load data from the service layer (mock today, Axios/REST later).
+  useEffect(() => {
+    let active = true;
+    Promise.all([getSettings(), getCourses(), getProgramTypes(), getDurations(), getStudents(), getReceipts()])
+      .then(([s, c, p, d, st, r]) => {
+        if (!active) return;
+        setCompany(s.company);
+        setSettings(s.settings);
+        setCourses(c);
+        setProgramTypes(p);
+        setDurations(d);
+        setStudents(st);
+        setReceipts(r);
+      })
+      .finally(() => active && setLoading(false));
+    return () => {
+      active = false;
+    };
+  }, []);
+
   const addReceipt = useCallback((receipt: Receipt) => {
     setReceipts((prev) => [receipt, ...prev]);
     setStudents((prev) =>
@@ -63,6 +100,7 @@ export function PortalDataProvider({ children }: { children: ReactNode }) {
 
   const value = useMemo<PortalData>(
     () => ({
+      loading,
       company,
       settings,
       courses,
@@ -78,7 +116,7 @@ export function PortalDataProvider({ children }: { children: ReactNode }) {
       addReceipt,
       deleteReceipt,
     }),
-    [company, settings, courses, programTypes, durations, students, receipts, addReceipt, deleteReceipt],
+    [loading, company, settings, courses, programTypes, durations, students, receipts, addReceipt, deleteReceipt],
   );
 
   return <PortalDataContext.Provider value={value}>{children}</PortalDataContext.Provider>;

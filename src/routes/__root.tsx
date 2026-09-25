@@ -1,8 +1,7 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
   Link,
-  createRootRouteWithContext,
+  createRootRoute,
   useRouter,
   HeadContent,
   Scripts,
@@ -11,8 +10,8 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
-import { AppShell } from "@/components/layout/AppShell";
-import { PortalDataProvider } from "@/store/portal-data";
+import { AppShell } from "@/layouts/DashboardLayout";
+import { PortalDataProvider } from "@/contexts/PortalDataContext";
 import { Toaster } from "@/components/ui/sonner";
 
 function NotFoundComponent() {
@@ -75,7 +74,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   );
 }
 
-export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
+export const Route = createRootRoute({
   head: () => ({
     meta: [
       { charSet: "utf-8" },
@@ -128,17 +127,13 @@ function RootShell({ children }: { children: ReactNode }) {
 }
 
 function RootComponent() {
-  const { queryClient } = Route.useRouteContext();
-
   return (
-    <QueryClientProvider client={queryClient}>
-      <PortalDataProvider>
+    <PortalDataProvider>
         <AppShell>
           {/* Required: nested routes render here. */}
           <Outlet />
         </AppShell>
         <Toaster position="top-right" />
-      </PortalDataProvider>
-    </QueryClientProvider>
+    </PortalDataProvider>
   );
 }

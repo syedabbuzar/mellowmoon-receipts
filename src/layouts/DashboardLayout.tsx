@@ -2,7 +2,7 @@ import { Menu } from "lucide-react";
 import { useState, type ReactNode } from "react";
 
 import { Button } from "@/components/common/Button";
-import { Sidebar } from "./Sidebar";
+import { Sidebar } from "@/components/layout/Sidebar";
 import { formatLongDate, todayISO } from "@/utils/dateUtils";
 
 export function AppShell({ children }: { children: ReactNode }) {

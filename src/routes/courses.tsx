@@ -1,8 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { BookOpen } from "lucide-react";
 
-import { ManageListPage, type ManagedItem } from "@/components/common/ManageListPage";
-import { usePortalData } from "@/store/portal-data";
+import Courses from "@/pages/Courses";
 
 export const Route = createFileRoute("/courses")({
   head: () => ({
@@ -20,24 +18,5 @@ export const Route = createFileRoute("/courses")({
       },
     ],
   }),
-  component: CoursesPage,
+  component: Courses,
 });
-
-function CoursesPage() {
-  const { courses, setCourses } = usePortalData();
-
-  return (
-    <ManageListPage
-      title="Courses"
-      subtitle="Courses offered across internship and training programmes"
-      itemNoun="Course"
-      nameLabel="Course Name"
-      namePlaceholder="e.g. Python & Agentic AI"
-      icon={BookOpen}
-      items={courses}
-      onChange={(updater) =>
-        setCourses((prev) => updater(prev as ManagedItem[]) as typeof prev)
-      }
-    />
-  );
-}
