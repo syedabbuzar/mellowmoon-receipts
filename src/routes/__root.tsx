@@ -11,8 +11,8 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
-import { AppShell } from "@/components/layout/AppShell";
-import { PortalDataProvider } from "@/store/portal-data";
+import { AppShell } from "@/layouts/DashboardLayout";
+import { PortalDataProvider } from "@/contexts/PortalDataContext";
 import { Toaster } from "@/components/ui/sonner";
 
 function NotFoundComponent() {
